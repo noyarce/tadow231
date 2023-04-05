@@ -15,7 +15,17 @@ const handleInputChange = (event) => {
     setListado(listado=> [...listado, variablex]);
     setvariablex("");
   }
-  
+
+const obtenerPoke = ()=>{
+
+axios.get("https://pokeapi.co/api/v2/pokemon?limit=151").then(
+      (response) => {
+        setListado(response.data.results)
+        }
+      );
+}
+
+
 //      https://javascript.plainenglish.io/how-to-add-to-an-array-in-react-state-3d08ddb2e1dc
 
 
