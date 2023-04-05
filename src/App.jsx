@@ -3,25 +3,21 @@ import "./App.css";
 import { List, ListItem, TextField } from "@mui/material";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [booleano, setBooleano] = useState(true);
-  const [variablex, setvariablex] = useState(null);
+  const [variablex, setvariablex] = useState("");
   const [listado, setListado] = useState([]);
 
-  const handleInputChange = (event) => {
+const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setvariablex({ ...variablex, [name]: value });
-    console.log(variablex);
+    setvariablex( value );
   };
 
-  useEffect(() => {
-    setListado([
-      { id: 1, value: 1 },
-      { id: 2, value: 2 },
-      { id: 3, value: 3 },
-      { id: 4, value: 4 },
-    ]);
-  }, []);
+  const botonClick=()=>{
+    setListado(listado=> [...listado, variablex]);
+    setvariablex("");
+  }
+  
+//      https://javascript.plainenglish.io/how-to-add-to-an-array-in-react-state-3d08ddb2e1dc
+
 
   return (
     <div className="App">
@@ -31,16 +27,20 @@ function App() {
           name="pokemon"
           type="text"
           variant="filled"
-          onChange={handleInputChange}
+          value={variablex}
+            onChange={handleInputChange}
         />
-        <button onClick={() => setBooleano(!booleano)}>
-          {booleano ? "hola" : "chao"}
+        <button onClick={() => botonClick()}>
         </button>
 
         <List>
-          {listado.map((item) => (
-            <ListItem>{item.id}</ListItem>
-          ))}
+          {// LLAVE
+          listado.map((item, index) => ( // Parentesis
+            <ListItem key={index}>
+            {item},{index}
+            </ListItem>
+          )) // parentesis x2
+          } 
         </List>
       </div>
     </div>
