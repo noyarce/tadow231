@@ -42,6 +42,12 @@ function App() {
 
   //      https://javascript.plainenglish.io/how-to-add-to-an-array-in-react-state-3d08ddb2e1dc
 
+
+const agregar= ()=>{
+
+  "HOLI"
+}
+
   return (
     <Box>
       <Grid
@@ -101,6 +107,8 @@ function App() {
                 ) => (
                   <ListItem key={index}>
                     {item.name},{index}
+                    <button onClick={() => agregar()}>
+        </button>
                   </ListItem>
                 )
               ) // parentesis x2
