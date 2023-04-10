@@ -5,19 +5,16 @@ import axios from "axios";
 
 function App() {
   const [variablex, setvariablex] = useState("");
-  const [listado, setListado] = useState(["holi"]);
+  const [listado, setListado] = useState([]);
   const [buscador, setBuscador] = useState("");
   const [listaAux, setListaAux] = useState([]);
-
+  const [listaTres, setListaTres] = useState([]);
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setBuscador(value);
   };
 
-  const botonClick = () => {
-    setListado((listado) => [...listado, variablex]);
-    setvariablex("");
-  };
+
 
   const obtenerPoke = () => {
     axios
@@ -42,11 +39,12 @@ function App() {
 
   //      https://javascript.plainenglish.io/how-to-add-to-an-array-in-react-state-3d08ddb2e1dc
 
+  const agregar = (item) => {
+    setListaTres((listaTres) => [...listaTres, item]);
+    setBuscador("");
+    setListaAux([]);
 
-const agregar= ()=>{
-
-  "HOLI"
-}
+  };
 
   return (
     <Box>
@@ -82,14 +80,15 @@ const agregar= ()=>{
         <Grid item md={4} xs={4} sx={{ background: "green" }}>
           <List>
             {
-              // LLAVE
+             
               listaAux.map(
                 (
                   item,
-                  index // Parentesis
+                  index 
                 ) => (
                   <ListItem key={index}>
-                    {item.name},{index}
+                    {item.name}
+                    <button onClick={() => agregar(item)}>[{index}]</button>
                   </ListItem>
                 )
               ) // parentesis x2
@@ -100,15 +99,13 @@ const agregar= ()=>{
           <List>
             {
               // LLAVE
-              listado.map(
+              listaTres.map(
                 (
                   item,
                   index // Parentesis
                 ) => (
                   <ListItem key={index}>
                     {item.name},{index}
-                    <button onClick={() => agregar()}>
-        </button>
                   </ListItem>
                 )
               ) // parentesis x2
