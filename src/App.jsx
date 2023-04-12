@@ -1,20 +1,28 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { Box, Card, CardContent, CardMedia, Grid, List, ListItem, TextField } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Grid,
+  List,
+  ListItem,
+  TextField,
+} from "@mui/material";
 import axios from "axios";
 
-function App() { 
+function App() {
   const [buscador, setBuscador] = useState("");
   const [listado, setListado] = useState([]);
- 
+  const [poke, setPoke] = useState(null);
   const [listaAux, setListaAux] = useState([]);
   const [listaTres, setListaTres] = useState([]);
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setBuscador(value);
   };
-
-
 
   const obtenerPoke = () => {
     axios
@@ -24,9 +32,18 @@ function App() {
       });
   };
 
+  const pokedetalle = () => {
+    let id = 1;
+    axios.get("https://pokeapi.co/api/v2/pokemon/" + id).then((response) => {
+      setPoke(response.data);
+    });
+  };
+
   useEffect(() => {
+    pokedetalle();
     obtenerPoke();
   }, []);
+  console.log(poke);
 
   useEffect(() => {
     if (buscador.trim() !== "") {
@@ -34,23 +51,20 @@ function App() {
         item.name.toString().includes(buscador.toString().trim())
       );
       setListaAux(result);
-    }else{
-            setListaAux([]);
-
+    } else {
+      setListaAux([]);
     }
   }, [buscador]);
 
   //      https://javascript.plainenglish.io/how-to-add-to-an-array-in-react-state-3d08ddb2e1dc
-//  https://pokeapi.glitch.me/v1/pokemon/1
 
   const agregar = (item) => {
     setListaTres((listaTres) => [...listaTres, item]);
-    let result = listaAux.filter((itemAux) =>    itemAux.name != item.name);
+    let result = listaAux.filter((itemAux) => itemAux.name != item.name);
     setListaAux(result);
 
-    let result2 = listado.filter((itemAux) =>    itemAux.name != item.name);
+    let result2 = listado.filter((itemAux) => itemAux.name != item.name);
     setListado(result2);
-
   };
 
   return (
@@ -72,47 +86,37 @@ function App() {
             onChange={handleInputChange}
           />
           <List>
-            {listado.map(( item,index ) => (
-                <ListItem key={index}>
-                  {item.name},{index + 1}
-                </ListItem>
-              )
-            )}
+            {listado.map((item, index) => (
+              <ListItem key={index}>
+                {item.name},{index + 1}
+              </ListItem>
+            ))}
           </List>
         </Grid>
         <Grid item md={4} xs={4} sx={{ background: "green" }}>
           <List>
             {
-             
-              listaAux.map(
-                (
-                  item,
-                  index 
-                ) => (
-                  <ListItem key={index}>
-                    {item.name}
-                    <button onClick={() => agregar(item)}>[{index}]</button>
-                  </ListItem>
-                )
-              ) // parentesis x2
+              listaAux.map((item, index) => (
+                <ListItem key={index}>
+                  {item.name}
+                  <button onClick={() => agregar(item)}>[{index}]</button>
+                </ListItem>
+              )) // parentesis x2
             }
           </List>
         </Grid>
         <Grid item md={4} xs={4} sx={{ background: "red" }}>
           <Card>
-          <CardMedia
-          src={'https://nexus.traction.one/images/pokemon/pokemon/1.png'}
-         // ver como ajustar url
-          />
-          
-          <CardContent>
-          {/* 
-          
-          numero : {}<-- "poner numero aqui"
-          nombre : {} <-- "poner nombre aqui"
-          
-           */}
-          </CardContent>
+            <CardMedia 
+             component="img"
+              image={poke?.sprites.front_default}
+              // ver como ajustar url
+            />
+
+            <CardContent>
+              numero : {poke?.id} <br/>
+              nombre : {poke?.name}
+            </CardContent>
           </Card>
         </Grid>
       </Grid>
