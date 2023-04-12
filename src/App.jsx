@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { Box, Grid, List, ListItem, TextField } from "@mui/material";
+import { Box, Card, CardContent, CardMedia, Grid, List, ListItem, TextField } from "@mui/material";
 import axios from "axios";
 
-function App() {
-  const [variablex, setvariablex] = useState("");
-  const [listado, setListado] = useState([]);
+function App() { 
   const [buscador, setBuscador] = useState("");
+  const [listado, setListado] = useState([]);
+ 
   const [listaAux, setListaAux] = useState([]);
   const [listaTres, setListaTres] = useState([]);
   const handleInputChange = (event) => {
@@ -34,15 +34,22 @@ function App() {
         item.name.toString().includes(buscador.toString().trim())
       );
       setListaAux(result);
+    }else{
+            setListaAux([]);
+
     }
   }, [buscador]);
 
   //      https://javascript.plainenglish.io/how-to-add-to-an-array-in-react-state-3d08ddb2e1dc
+//  https://pokeapi.glitch.me/v1/pokemon/1
 
   const agregar = (item) => {
     setListaTres((listaTres) => [...listaTres, item]);
-    setBuscador("");
-    setListaAux([]);
+    let result = listaAux.filter((itemAux) =>    itemAux.name != item.name);
+    setListaAux(result);
+
+    let result2 = listado.filter((itemAux) =>    itemAux.name != item.name);
+    setListado(result2);
 
   };
 
@@ -65,11 +72,7 @@ function App() {
             onChange={handleInputChange}
           />
           <List>
-            {listado.map(
-              (
-                item,
-                index // Parentesis
-              ) => (
+            {listado.map(( item,index ) => (
                 <ListItem key={index}>
                   {item.name},{index + 1}
                 </ListItem>
@@ -96,21 +99,21 @@ function App() {
           </List>
         </Grid>
         <Grid item md={4} xs={4} sx={{ background: "red" }}>
-          <List>
-            {
-              // LLAVE
-              listaTres.map(
-                (
-                  item,
-                  index // Parentesis
-                ) => (
-                  <ListItem key={index}>
-                    {item.name},{index}
-                  </ListItem>
-                )
-              ) // parentesis x2
-            }
-          </List>
+          <Card>
+          <CardMedia
+          src={'https://nexus.traction.one/images/pokemon/pokemon/1.png'}
+         // ver como ajustar url
+          />
+          
+          <CardContent>
+          {/* 
+          
+          numero : {}<-- "poner numero aqui"
+          nombre : {} <-- "poner nombre aqui"
+          
+           */}
+          </CardContent>
+          </Card>
         </Grid>
       </Grid>
     </Box>
