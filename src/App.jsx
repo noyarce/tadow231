@@ -32,15 +32,13 @@ function App() {
       });
   };
 
-  const pokedetalle = () => {
-    let id = 1;
+  const pokedetalle = (id) => {
     axios.get("https://pokeapi.co/api/v2/pokemon/" + id).then((response) => {
       setPoke(response.data);
     });
   };
 
   useEffect(() => {
-    pokedetalle();
     obtenerPoke();
   }, []);
   console.log(poke);
@@ -59,12 +57,8 @@ function App() {
   //      https://javascript.plainenglish.io/how-to-add-to-an-array-in-react-state-3d08ddb2e1dc
 
   const agregar = (item) => {
-    setListaTres((listaTres) => [...listaTres, item]);
-    let result = listaAux.filter((itemAux) => itemAux.name != item.name);
-    setListaAux(result);
-
-    let result2 = listado.filter((itemAux) => itemAux.name != item.name);
-    setListado(result2);
+    let result = listado.indexOf(item);
+    pokedetalle(result+1);
   };
 
   return (
@@ -107,14 +101,14 @@ function App() {
         </Grid>
         <Grid item md={4} xs={4} sx={{ background: "red" }}>
           <Card>
-            <CardMedia 
-             component="img"
+            <CardMedia
+              component="img"
               image={poke?.sprites.front_default}
               // ver como ajustar url
             />
 
             <CardContent>
-              numero : {poke?.id} <br/>
+              numero : {poke?.id} <br />
               nombre : {poke?.name}
             </CardContent>
           </Card>
