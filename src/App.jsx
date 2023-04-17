@@ -82,7 +82,7 @@ function App() {
           <List>
             {listado.map((item, index) => (
               <ListItem key={index}>
-                {item.name},{index + 1}
+                {item.name},{index}
               </ListItem>
             ))}
           </List>

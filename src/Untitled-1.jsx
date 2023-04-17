@@ -10,3 +10,39 @@ useEffect(() => {
       setListaAux(result);
     }
 }, [buscador]);
+
+
+
+    function nombreRandom(){
+        let res = '';
+        for(let i = 0; i < 4; i++){
+            const random = Math.floor(Math.random() * 25);
+            res += String.fromCharCode(97 + random);
+        };
+        return res;
+    }
+
+
+
+
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+
+const queryClient = new QueryClient();
+
+function App() {
+  return (
+      <QueryClientProvider client={queryClient}>
+        
+      </QueryClientProvider>
+  );
+}
+export default App;
+
+const {
+    data: nuevoListado,
+    isLoading: cargando,
+    refetch: recargar,
+    isError: errors,
+  } = useBuscarInfoQuery(params);
