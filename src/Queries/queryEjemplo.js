@@ -1,8 +1,11 @@
-import { useQuery, queryCache } from "@tanstack/react-query";
+import { useQuery } from "react-query";
 import axios from "axios";
 
-export function useBuscarInfoQuery(params) {
-  return useQuery(["buscarInfoQuery", params], buscarInfoQuery, {
+export function 
+useBuscarInfoQuery(params) {
+  return useQuery(
+    ["buscarInfoQuery", params],
+     buscarInfoQuery, {
     retry: 0,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
@@ -23,3 +26,4 @@ export const buscarInfoQuery = async (params) => {
   });
   return resumen;
 };
+
