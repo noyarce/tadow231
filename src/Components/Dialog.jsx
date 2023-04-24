@@ -6,17 +6,15 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useQueryPokeDetalle } from "../Queries/queryPokeDetalle";
+import { Card, CardContent, CardMedia } from "@mui/material";
 
-export default function AlertDialog({id, open, handleClickOpen, handleClose}) {
-  
-  
-  const { data: poke, isLoading: cargandoPoke } = useQueryPokeDetalle({valor: id});
+export default function AlertDialog({id, open, handleClose}) {
 
+ const { data: poke, isLoading: cargandoPoke } = useQueryPokeDetalle({valor: id});
+
+console.log(poke);
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open alert dialog
-      </Button>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -27,10 +25,19 @@ export default function AlertDialog({id, open, handleClickOpen, handleClose}) {
           {"Use Google's location service?"}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are running.
-          </DialogContentText>
+         
+          <Card>
+            <CardMedia
+              component="img"
+              image={poke?.sprites.front_default}
+            />
+
+            <CardContent>
+              numero : {poke?.id} <br />
+              nombre : {poke?.name}
+            </CardContent> 
+          </Card>
+
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Disagree</Button>

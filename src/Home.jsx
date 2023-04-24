@@ -11,12 +11,11 @@ import {
   ListItem,
   TextField,
 } from "@mui/material";
-import axios from "axios";
 import { useBuscarInfoQuery } from "./Queries/queryEjemplo";
-import { useQueryPokeDetalle } from "./Queries/queryPokeDetalle";
 import AlertDialog from "./Components/Dialog";
 
 function Home() {
+
   const [open, setOpen] = useState(false);
 
   const [buscador, setBuscador] = useState("");
@@ -41,9 +40,7 @@ function Home() {
 
   console.log("rq", nuevoListado);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+ 
 
   const handleClose = () => {
     setOpen(false);
@@ -127,7 +124,6 @@ function Home() {
       <AlertDialog
         id={parametros?.valor}
         open={open}
-        handleClickOpen={handleClickOpen}
         handleClose={handleClose}
       />
     </Box>
