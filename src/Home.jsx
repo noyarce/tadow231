@@ -14,8 +14,10 @@ import {
 import axios from "axios";
 import { useBuscarInfoQuery } from "./Queries/queryEjemplo";
 import { useQueryPokeDetalle } from "./Queries/queryPokeDetalle";
+import AlertDialog from "./Components/Dialog";
 
-function Home (){
+function Home() {
+  const [open, setOpen] = useState(false);
 
   const [buscador, setBuscador] = useState("");
   //const [poke, setPoke] = useState(null);
@@ -27,29 +29,25 @@ function Home (){
     setBuscador(value);
   };
 
-const [params, setParams]=useState({ limit: 2000});
-const [parametros, setParametros]=useState({ valor: ""});
+  const [params, setParams] = useState({ limit: 2000 });
+  const [parametros, setParametros] = useState({ valor: "" });
 
-// npm i react-query <-- Libreria React Query.
-const {data: poke, isLoading:cargandoPoke}= useQueryPokeDetalle(parametros);
-
-const {
+  const {
     data: nuevoListado,
     isLoading: cargando,
     refetch: recargar,
     isError: errors,
   } = useBuscarInfoQuery(params);
 
-console.log("rq",nuevoListado);
+  console.log("rq", nuevoListado);
 
- 
-
-  const pokedetalle = (id) => {
-    axios.get("https://pokeapi.co/api/v2/pokemon/" + id).then((response) => {
-      setPoke(response.data);
-    });
+  const handleClickOpen = () => {
+    setOpen(true);
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     if (buscador.trim() !== "") {
@@ -62,10 +60,9 @@ console.log("rq",nuevoListado);
     }
   }, [buscador]);
 
-
-
   const agregar = (item) => {
-    setParametros({valor: item.id});
+    setParametros({ valor: item.id });
+    setOpen(true);
   };
 
   return (
@@ -87,14 +84,13 @@ console.log("rq",nuevoListado);
             onChange={handleInputChange}
           />
           <List>
-
-            {cargando ? "hola":
-            
-            nuevoListado?.map((item, index) => (
-              <ListItem key={index}>
-                {item.label},{item.id},{index}
-              </ListItem>
-            ))}
+            {cargando
+              ? "hola"
+              : nuevoListado?.map((item, index) => (
+                  <ListItem key={index}>
+                    {item.label},{item.id},{index}
+                  </ListItem>
+                ))}
           </List>
         </Grid>
         <Grid item md={4} xs={4} sx={{ background: "green" }}>
@@ -105,16 +101,17 @@ console.log("rq",nuevoListado);
                   {item.label}
 
                   <Button
-                  variant = "contained"
-                   disabled = {cargandoPoke || parametros.valor == item.id}
-                  onClick={() => agregar(item)}></Button>
+                    variant="contained"
+                    disabled={cargando || parametros.valor == item.id}
+                    onClick={() => agregar(item)}
+                  ></Button>
                 </ListItem>
               )) // parentesis x2
             }
           </List>
         </Grid>
         <Grid item md={4} xs={4} sx={{ background: "red" }}>
-          <Card>
+          {/* <Card>
             <CardMedia
               component="img"
               image={poke?.sprites.front_default}
@@ -123,13 +120,18 @@ console.log("rq",nuevoListado);
             <CardContent>
               numero : {poke?.id} <br />
               nombre : {poke?.name}
-            </CardContent>
-          </Card>
+            </CardContent> 
+          </Card>*/}
         </Grid>
       </Grid>
+      <AlertDialog
+        id={parametros?.valor}
+        open={open}
+        handleClickOpen={handleClickOpen}
+        handleClose={handleClose}
+      />
     </Box>
   );
-
 }
 
 export default Home;
