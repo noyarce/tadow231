@@ -13,9 +13,9 @@ import {
 } from "@mui/material";
 import { useBuscarInfoQuery } from "./Queries/queryEjemplo";
 import AlertDialog from "./Components/Dialog";
+import BasicPopover from "./Components/Popover";
 
 function Home() {
-
   const [open, setOpen] = useState(false);
 
   const [buscador, setBuscador] = useState("");
@@ -38,10 +38,6 @@ function Home() {
     isError: errors,
   } = useBuscarInfoQuery(params);
 
-  console.log("rq", nuevoListado);
-
- 
-
   const handleClose = () => {
     setOpen(false);
   };
@@ -59,7 +55,6 @@ function Home() {
 
   const agregar = (item) => {
     setParametros({ valor: item.id });
-    setOpen(true);
   };
 
   return (
@@ -95,37 +90,15 @@ function Home() {
             {
               listaAux.map((item, index) => (
                 <ListItem key={index}>
-                  {item.label}
-
-                  <Button
-                    variant="contained"
-                    disabled={cargando || parametros.valor == item.id}
-                    onClick={() => agregar(item)}
-                  ></Button>
+                {item.label}
+                  <BasicPopover idPoke={item?.id} />
                 </ListItem>
-              )) // parentesis x2
+              )) 
             }
           </List>
         </Grid>
-        <Grid item md={4} xs={4} sx={{ background: "red" }}>
-          {/* <Card>
-            <CardMedia
-              component="img"
-              image={poke?.sprites.front_default}
-            />
-
-            <CardContent>
-              numero : {poke?.id} <br />
-              nombre : {poke?.name}
-            </CardContent> 
-          </Card>*/}
-        </Grid>
+        <Grid item md={4} xs={4} sx={{ background: "red" }}></Grid>
       </Grid>
-      <AlertDialog
-        id={parametros?.valor}
-        open={open}
-        handleClose={handleClose}
-      />
     </Box>
   );
 }

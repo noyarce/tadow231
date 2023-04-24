@@ -12,7 +12,6 @@ export default function AlertDialog({id, open, handleClose}) {
 
  const { data: poke, isLoading: cargandoPoke } = useQueryPokeDetalle({valor: id});
 
-console.log(poke);
   return (
     <div>
       <Dialog
