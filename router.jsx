@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./src/Home";
 import CustomToolbar from "./src/Components/Drawer";
 import ErrorPage from "./src/Pages/ErrorPage";
+import Buscador from "./src/Pages/Buscador";
 const RouterApp = () => {
   return  <LogedInRoutes />;
 };
@@ -19,7 +20,7 @@ const LogedInRoutes = () => {
     <CustomToolbar/>
       <Routes>
         <Route exact path="/" element={<Home />} />
-        
+        <Route path="buscar" element={<Buscador/>} />
         <Route path='*' element={<ErrorPage />}/>
       </Routes>
     </>

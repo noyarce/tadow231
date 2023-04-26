@@ -21,6 +21,9 @@ function CustomToolbar() {
           </NavLink>
 
           
+          <NavLink to="buscar">
+            <Button color="inherit">buscador</Button>
+          </NavLink>
 
 
         </Toolbar>
