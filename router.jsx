@@ -19,8 +19,8 @@ const LogedInRoutes = () => {
     <CustomToolbar/>
       <Routes>
         <Route exact path="/" element={<Home />} />
+        
         <Route path='*' element={<ErrorPage />}/>
-
       </Routes>
     </>
   );

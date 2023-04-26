@@ -15,9 +15,14 @@ function CustomToolbar() {
           >
             <Menu />
           </IconButton>
+
           <NavLink to="/">
             <Button color="inherit">Home</Button>
           </NavLink>
+
+          
+
+
         </Toolbar>
       </AppBar>
   );
