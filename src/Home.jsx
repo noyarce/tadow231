@@ -12,8 +12,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useBuscarInfoQuery } from "./Queries/queryEjemplo";
-import AlertDialog from "./Components/Dialog";
-import BasicPopover from "./Components/Popover";
+import { Link } from "react-router-dom";
 
 function Home() {
   const [open, setOpen] = useState(false);
@@ -89,10 +88,12 @@ function Home() {
           <List>
             {
               listaAux.map((item, index) => (
+                <Link key={index} to={"/pokeDetalle/"+item.label}>
                 <ListItem key={index}>
                 {item.label}
-                  <BasicPopover idPoke={item?.id} />
                 </ListItem>
+                </Link>
+                
               )) 
             }
           </List>

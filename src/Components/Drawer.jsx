@@ -24,8 +24,6 @@ function CustomToolbar() {
           <NavLink to="buscar">
             <Button color="inherit">buscador</Button>
           </NavLink>
-
-
         </Toolbar>
       </AppBar>
   );

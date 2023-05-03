@@ -10,19 +10,15 @@ import {
   TextField,
 } from "@mui/material";
 
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams  } from "react-router-dom";
 
 export default function PokeDetalle() {
 
-    const navigate = useNavigate();
-
-  const { pokeId } = useParams();
-
-  const { data: poke, isError: hayError } = useQueryPokeDetalle({ valor: pokeId });
+  const params = useParams();
+  const { data: poke, isError: hayError } = useQueryPokeDetalle({ valor: params.pokeId });
   
   return (
     <>
-      <Button onClick={() => navigate(-1)}>Volver</Button>
       {hayError && <Alert severity="error">ese pokemon no existe</Alert>}
       <Card>
         <CardMedia component="img" image={poke?.sprites.front_default} />

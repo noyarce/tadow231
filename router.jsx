@@ -22,8 +22,7 @@ const LogedInRoutes = () => {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="buscar" element={<Buscador/>} />
-                <Route path="pokeDetalle/:pokeId" element={<PokeDetalle/>} />
-
+        <Route path="pokeDetalle/:pokeId" element={<PokeDetalle/>} />
         <Route path='*' element={<ErrorPage />}/>
       </Routes>
     </>
